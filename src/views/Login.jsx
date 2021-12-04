@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextField, Button, Box, Typography, FormGroup, FormControlLabel, Checkbox, Container, CssBaseline } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -10,7 +11,16 @@ const Login = () => {
         const username = formData.get('username')
         const password = formData.get('password')
         
-        navigate('/')
+        axios({
+            url: 'http://localhost:3001/auth/login',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: { username: username, password: password }
+        }).then((resp) => {
+            resp.data.result === 'success' ? navigate('/') : alert(resp.data.message)
+        })
     }
 
     return (
