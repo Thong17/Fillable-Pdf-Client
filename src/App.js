@@ -6,8 +6,5 @@ function App() {
   );
 }
 
-const test = () => {
-  console.log('test');
-}
 
 export default App;
